@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>YuktiAI — AI Agency Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span class="dot"></span> YuktiAI
+    </div>
+    <nav>
+      <a href="index.html"  class="active">Dashboard</a>
+      <a href="client.html">Client portal</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <section class="status">
+      <span class="pulse"></span> ALL AGENTS ACTIVE
+      <span class="meta">UPTIME · <span id="uptime">99.4%</span></span>
+    </section>
+
+    <section class="agent-grid" id="agentGrid">
+      <!-- agent cards rendered by app.js -->
+    </section>
+
+    <footer class="bus-line">
+      <span class="bus-dot"></span>
+      Inter-agent message bus · n8n + Supabase
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

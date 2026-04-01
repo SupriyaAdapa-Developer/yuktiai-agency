@@ -1,0 +1,20 @@
+{
+  "name": "yuktiai-agency",
+  "version": "1.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev":   "npx serve public -l 3000",
+    "build": "echo 'static site — nothing to build'",
+    "lint":  "npx eslint public/app.js api/*.ts",
+    "deploy": "bash scripts/deploy.sh",
+    "seed":   "node scripts/seed_demo.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.4.0",
+    "serve":  "^14.2.4"
+  }
+}
