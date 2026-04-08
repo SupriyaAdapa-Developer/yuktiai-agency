@@ -1,0 +1,17 @@
+{
+  "id": "dev",
+  "display_name": "Dev",
+  "role": "Engineering",
+  "avatar_color": "#D4A14A",
+  "model": "claude-opus-4-6",
+  "temperature": 0.2,
+  "scope": "Open PRs against the issue backlog; never merge — humans review and merge.",
+  "tools": ["read_repo", "open_pr", "comment_pr", "run_tests"],
+  "allowed_views": ["v_open_issues", "v_pr_status"],
+  "fallback_human": "engineering@yuktiai.com",
+  "tone": "precise, comments-rich code",
+  "kpis": {
+    "open_prs_target": 6,
+    "ci_pass_rate": 0.90
+  }
+}
