@@ -1,0 +1,34 @@
+{
+  "name": "yuktiai-daily-digest",
+  "nodes": [
+    {
+      "parameters": { "rule": { "cron": "0 9 * * *" } },
+      "id": "cron-1", "name": "Cron · 9am IST",
+      "type": "n8n-nodes-base.cron", "typeVersion": 1, "position": [240, 200]
+    },
+    {
+      "parameters": { "table": "agent_kpi_snapshots",
+                      "filters": "snapshot_d=eq.{{$now.format('YYYY-MM-DD')}}" },
+      "id": "sb-1", "name": "Supabase · today KPIs",
+      "type": "n8n-nodes-base.supabase", "typeVersion": 1, "position": [520, 200]
+    },
+    {
+      "parameters": { "model": "claude-haiku-4-5-20251001",
+                      "messages": "={{ [{role:'user',content: 'Summarise yesterday in 4 lines for the founder: ' + JSON.stringify($items())}] }}" },
+      "id": "claude-1", "name": "Claude · summarise",
+      "type": "n8n-nodes-base.anthropic", "typeVersion": 1, "position": [800, 200]
+    },
+    {
+      "parameters": { "fromEmail": "digest@yuktiai.com", "toEmail": "founder@yuktiai.com",
+                      "subject": "YuktiAI · daily digest", "text": "={{ $json.summary }}" },
+      "id": "mail-1", "name": "Email · founder",
+      "type": "n8n-nodes-base.emailSend", "typeVersion": 2, "position": [1080, 200]
+    }
+  ],
+  "connections": {
+    "Cron · 9am IST":           { "main": [[{ "node": "Supabase · today KPIs", "type": "main", "index": 0 }]] },
+    "Supabase · today KPIs":    { "main": [[{ "node": "Claude · summarise",    "type": "main", "index": 0 }]] },
+    "Claude · summarise":       { "main": [[{ "node": "Email · founder",       "type": "main", "index": 0 }]] }
+  },
+  "active": true
+}

@@ -1,0 +1,42 @@
+{
+  "name": "yuktiai-lead-intake",
+  "nodes": [
+    {
+      "parameters": { "path": "lead-intake", "responseMode": "lastNode" },
+      "id": "wh-1", "name": "Webhook · /lead-intake",
+      "type": "n8n-nodes-base.webhook", "typeVersion": 1.1,
+      "position": [240, 200]
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-6",
+        "messages": "={{ [{role:'user',content:'Qualify this lead: ' + JSON.stringify($json)}] }}",
+        "options": { "system": "You are Vikram, BD agent. Reply with JSON {qualified:bool, reason:str}." }
+      },
+      "id": "claude-1", "name": "Claude · qualify",
+      "type": "n8n-nodes-base.anthropic", "typeVersion": 1,
+      "position": [520, 200]
+    },
+    {
+      "parameters": {
+        "rules": { "values": [{ "conditions": { "string": [{ "value1": "={{ $json.qualified }}", "value2": "true" }] } }] }
+      },
+      "id": "switch-1", "name": "If qualified",
+      "type": "n8n-nodes-base.switch", "typeVersion": 3,
+      "position": [800, 200]
+    },
+    {
+      "parameters": { "operation": "insert", "table": "tasks",
+                      "columns": "tenant_id, agent_id, kind, payload_json" },
+      "id": "sb-1", "name": "Supabase · queue Arya task",
+      "type": "n8n-nodes-base.supabase", "typeVersion": 1,
+      "position": [1080, 120]
+    }
+  ],
+  "connections": {
+    "Webhook · /lead-intake": { "main": [[{ "node": "Claude · qualify", "type": "main", "index": 0 }]] },
+    "Claude · qualify":       { "main": [[{ "node": "If qualified",     "type": "main", "index": 0 }]] },
+    "If qualified":           { "main": [[{ "node": "Supabase · queue Arya task", "type": "main", "index": 0 }]] }
+  },
+  "active": true
+}

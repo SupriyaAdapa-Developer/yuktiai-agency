@@ -1,0 +1,44 @@
+{
+  "name": "yuktiai-inter-agent-bus",
+  "nodes": [
+    {
+      "parameters": { "path": "agent-bus", "responseMode": "lastNode", "options": {} },
+      "id": "webhook-1",
+      "name": "Webhook · /agent-bus",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 240]
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "table": "agent_messages",
+        "columns": "tenant_id, from_agent, to_agent, topic, payload_json"
+      },
+      "id": "supabase-1",
+      "name": "Supabase · insert message",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [520, 240],
+      "credentials": { "supabaseApi": { "id": "1", "name": "yukti-svc" } }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.callback_url }}",
+        "method": "POST",
+        "jsonBody": "={{ JSON.stringify($json) }}"
+      },
+      "id": "http-1",
+      "name": "HTTP · notify recipient",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [800, 240]
+    }
+  ],
+  "connections": {
+    "Webhook · /agent-bus":        { "main": [[{ "node": "Supabase · insert message", "type": "main", "index": 0 }]] },
+    "Supabase · insert message":   { "main": [[{ "node": "HTTP · notify recipient",   "type": "main", "index": 0 }]] }
+  },
+  "active": true,
+  "settings": { "executionOrder": "v1" }
+}
