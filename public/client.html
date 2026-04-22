@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Client portal · YuktiAI</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand"><span class="dot"></span> YuktiAI</div>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="client.html" class="active">Client portal</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </header>
+
+  <main class="portal">
+    <h1>Welcome back</h1>
+    <p class="lead">Your agents are running. Open a request below — Vikram or Priya will pick it up within minutes.</p>
+
+    <form id="requestForm" class="request-form">
+      <label>What can we help with?</label>
+      <textarea name="body" rows="4" required placeholder="e.g. Find me 15 contacts at fintechs in Bangalore who use Razorpay."></textarea>
+      <div class="row">
+        <select name="route">
+          <option value="auto">Auto-route to the right agent</option>
+          <option value="vikram">Send to Vikram (BD)</option>
+          <option value="arya">Send to Arya (Sales)</option>
+          <option value="priya">Send to Priya (Support)</option>
+        </select>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+    <h2>Your recent tasks</h2>
+    <ul id="taskList" class="task-list"></ul>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
