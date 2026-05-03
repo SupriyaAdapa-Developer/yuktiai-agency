@@ -2,42 +2,180 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Client portal · YuktiAI</title>
+<title>Customer portal · YuktiAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <div class="brand"><span class="dot"></span> YuktiAI</div>
-    <nav>
-      <a href="index.html">Dashboard</a>
-      <a href="client.html" class="active">Client portal</a>
-      <a href="admin.html">Admin</a>
-          <a href="https://getyuktiai.netlify.app/" target="_blank" rel="noopener" class="live-link">live ↗</a>
-    </nav>
-  </header>
 
-  <main class="portal">
-    <h1>Welcome back</h1>
-    <p class="lead">Your agents are running. Open a request below — Vikram or Priya will pick it up within minutes.</p>
+<div class="app-shell">
+    <aside class="sidebar">
+        <a href="index.html" class="logo"><span class="glyph">Y</span> YuktiAI</a>
+        <nav>
+            <a href="client.html" class="active">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Home
+            </a>
+            <a href="#">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Conversations
+            </a>
+            <a href="#">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                Tasks
+            </a>
+            <a href="#">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                Billing
+            </a>
+            <a href="#">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                Help
+            </a>
+        </nav>
+        <div class="user">
+            <div class="avatar">JM</div>
+            <div><div class="person">Jasmine Mehta</div><div class="role">Acumen Lending</div></div>
+        </div>
+    </aside>
 
-    <form id="requestForm" class="request-form">
-      <label>What can we help with?</label>
-      <textarea name="body" rows="4" required placeholder="e.g. Find me 15 contacts at fintechs in Bangalore who use Razorpay."></textarea>
-      <div class="row">
-        <select name="route">
-          <option value="auto">Auto-route to the right agent</option>
-          <option value="vikram">Send to Vikram (BD)</option>
-          <option value="arya">Send to Arya (Sales)</option>
-          <option value="priya">Send to Priya (Support)</option>
-        </select>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
+    <main class="app-main">
+        <div class="app-header">
+            <div>
+                <h1>Welcome back, Jasmine</h1>
+                <div class="meta">3 tasks running · 1 awaiting your approval</div>
+            </div>
+            <button class="btn btn-primary">+ New request</button>
+        </div>
 
-    <h2>Your recent tasks</h2>
-    <ul id="taskList" class="task-list"></ul>
-  </main>
+        <div class="metric-row">
+            <div class="metric-card"><div class="label">Tasks this month</div><div class="value">47</div><div class="delta">▲ 11 vs last month</div></div>
+            <div class="metric-card"><div class="label">Hours saved</div><div class="value">128</div><div class="delta">▲ 22 hours</div></div>
+            <div class="metric-card"><div class="label">Plan usage</div><div class="value">62%</div><div class="delta">14,892 / 24,000 actions</div></div>
+            <div class="metric-card"><div class="label">Next renewal</div><div class="value" style="font-size:18px; padding-top: 6px;">Jun 18</div><div class="delta">$299 · Growth</div></div>
+        </div>
 
-  <script src="app.js"></script>
+        <div class="panel-row">
+            <div>
+                <div class="panel">
+                    <h3>Submit a new request</h3>
+                    <form id="requestForm" style="display:flex; flex-direction:column; gap:12px;">
+                        <div class="form-group">
+                            <label>What can the team help with?</label>
+                            <textarea name="body" required placeholder="e.g. Find me 15 contacts at fintechs in Bangalore who use Razorpay. Qualify them against our ICP and route the strongest 5 to Arya for outreach."></textarea>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div class="form-group">
+                                <label>Route to</label>
+                                <select name="route">
+                                    <option value="auto">Auto · let YuktiAI route</option>
+                                    <option value="vikram">Vikram · Business Dev</option>
+                                    <option value="arya">Arya · Sales</option>
+                                    <option value="priya">Priya · Support</option>
+                                    <option value="dev">Dev · Engineering</option>
+                                    <option value="lakshmi">Lakshmi · Finance</option>
+                                    <option value="riya">Riya · Marketing</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Priority</label>
+                                <select name="priority">
+                                    <option>Normal</option><option>High</option><option>Low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="display:flex; justify-content:flex-end; gap: 10px;">
+                            <button type="button" class="btn btn-ghost">Save as draft</button>
+                            <button type="submit" class="btn btn-primary">Submit request</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h3>Recent tasks <span class="h3-meta">last 14 days</span></h3>
+                    <table class="app-table" id="taskTable">
+                        <thead><tr><th>Task</th><th>Agent</th><th>Status</th><th style="text-align:right">Updated</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Find 15 fintech contacts in Bangalore</strong><div style="color:var(--text-mute); font-size:12px">Submitted by Jasmine M. · routed via auto</div></td>
+                                <td>Vikram</td>
+                                <td><span class="status-pill active">Done</span></td>
+                                <td style="text-align:right; font-family: var(--font-mono); color: var(--text-mute)">2h ago</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Draft Q2 proposal for Citrine Health</strong><div style="color:var(--text-mute); font-size:12px">3 revisions, awaiting your sign-off</div></td>
+                                <td>Arya</td>
+                                <td><span class="status-pill paused">Pending review</span></td>
+                                <td style="text-align:right; font-family: var(--font-mono); color: var(--text-mute)">3h ago</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Refund ticket #482 (Acme)</strong><div style="color:var(--text-mute); font-size:12px">Auto-approved by policy · &lt;$100</div></td>
+                                <td>Priya → Lakshmi</td>
+                                <td><span class="status-pill active">Done</span></td>
+                                <td style="text-align:right; font-family: var(--font-mono); color: var(--text-mute)">5h ago</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Open PR: fix RLS leak in v_messages</strong><div style="color:var(--text-mute); font-size:12px">PR #281 · CI green · awaiting human merge</div></td>
+                                <td>Dev</td>
+                                <td><span class="status-pill paused">Pending review</span></td>
+                                <td style="text-align:right; font-family: var(--font-mono); color: var(--text-mute)">8h ago</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Reconcile April Stripe statement</strong><div style="color:var(--text-mute); font-size:12px">All 247 charges matched · 0 anomalies</div></td>
+                                <td>Lakshmi</td>
+                                <td><span class="status-pill active">Done</span></td>
+                                <td style="text-align:right; font-family: var(--font-mono); color: var(--text-mute)">1d ago</td>
+                            </tr>
+                            <tr>
+                                <td><strong>LinkedIn post: "How we built YuktiAI"</strong><div style="color:var(--text-mute); font-size:12px">Drafted · founder edits applied · scheduled Thu 9am</div></td>
+                                <td>Riya</td>
+                                <td><span class="status-pill active">Scheduled</span></td>
+                                <td style="text-align:right; font-family: var(--font-mono); color: var(--text-mute)">1d ago</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div>
+                <div class="panel">
+                    <h3>Available agents</h3>
+                    <table class="app-table">
+                        <tbody>
+                            <tr><td><strong>Vikram</strong><div style="font-size:12px; color:var(--text-mute)">BD · qualifies leads</div></td><td style="text-align:right"><span class="status-pill active">Online</span></td></tr>
+                            <tr><td><strong>Arya</strong><div style="font-size:12px; color:var(--text-mute)">Sales · runs pipeline</div></td><td style="text-align:right"><span class="status-pill active">Online</span></td></tr>
+                            <tr><td><strong>Priya</strong><div style="font-size:12px; color:var(--text-mute)">Support · 24/7</div></td><td style="text-align:right"><span class="status-pill active">Online</span></td></tr>
+                            <tr><td><strong>Dev</strong><div style="font-size:12px; color:var(--text-mute)">Engineering</div></td><td style="text-align:right"><span class="status-pill active">Online</span></td></tr>
+                            <tr><td><strong>Lakshmi</strong><div style="font-size:12px; color:var(--text-mute)">Finance · Stripe</div></td><td style="text-align:right"><span class="status-pill active">Online</span></td></tr>
+                            <tr><td><strong>Riya</strong><div style="font-size:12px; color:var(--text-mute)">Marketing · drafts</div></td><td style="text-align:right"><span class="status-pill active">Online</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel">
+                    <h3>Quick actions</h3>
+                    <div style="display: grid; gap: 8px;">
+                        <a class="btn btn-ghost" style="justify-content: flex-start;" href="#">Generate weekly digest</a>
+                        <a class="btn btn-ghost" style="justify-content: flex-start;" href="#">Export task history</a>
+                        <a class="btn btn-ghost" style="justify-content: flex-start;" href="#">Pause all agents</a>
+                        <a class="btn btn-ghost" style="justify-content: flex-start;" href="#">Invite teammate</a>
+                    </div>
+                </div>
+
+                <div class="panel" style="background: linear-gradient(180deg, var(--accent-bg), var(--bg-card));">
+                    <h3 style="color: var(--accent-2);">💡 Tip of the day</h3>
+                    <p style="margin: 0; font-size: 13px; color: var(--text-mute); line-height: 1.6;">
+                        Use <strong style="color: var(--text)">policies</strong> to set per-action approval rules — e.g.
+                        <em style="color: var(--text)">"Lakshmi can auto-approve refunds under $100 within 7 days of purchase."</em>
+                        Saves your team's review time without giving up control.
+                    </p>
+                    <a href="#" style="color: var(--accent-2); font-size: 13px; margin-top: 10px; display: inline-block;">Configure policies →</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>

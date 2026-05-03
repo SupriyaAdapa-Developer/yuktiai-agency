@@ -2,39 +2,155 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Admin · YuktiAI</title>
+<title>Dashboard · YuktiAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <div class="brand"><span class="dot"></span> YuktiAI</div>
-    <nav>
-      <a href="index.html">Dashboard</a>
-      <a href="client.html">Client portal</a>
-      <a href="admin.html" class="active">Admin</a>
-          <a href="https://getyuktiai.netlify.app/" target="_blank" rel="noopener" class="live-link">live ↗</a>
-    </nav>
-  </header>
 
-  <main class="admin">
-    <h1>Admin</h1>
+<div class="app-shell">
 
-    <section class="admin-grid">
-      <div class="panel">
-        <h3>Agent runtime config</h3>
-        <table id="agentConfigTable">
-          <thead><tr><th>Agent</th><th>Model</th><th>Active</th><th></th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+        <a href="index.html" class="logo"><span class="glyph">Y</span> YuktiAI</a>
+        <nav>
+            <a href="admin.html" class="active">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                Overview
+            </a>
+            <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Agents</a>
+            <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Message bus</a>
+            <a href="client.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Customers</a>
+            <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 6-6"/></svg>Analytics</a>
 
-      <div class="panel">
-        <h3>Recent messages on the bus</h3>
-        <ul id="messageStream" class="msg-stream"></ul>
-      </div>
-    </section>
-  </main>
+            <div class="nav-section">Setup</div>
+            <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7v10l10 5 10-5V7l-10-5z"/></svg>Integrations</a>
+            <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a>
+            <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Audit log</a>
+        </nav>
+        <div class="user">
+            <div class="avatar">SA</div>
+            <div><div class="person">Supriya Adapa</div><div class="role">Owner</div></div>
+        </div>
+    </aside>
 
-  <script src="app.js"></script>
+    <!-- ===== MAIN ===== -->
+    <main class="app-main">
+        <div class="app-header">
+            <div>
+                <h1>Overview</h1>
+                <div class="meta" id="todayLabel">Today, looking good</div>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-ghost">Last 7 days ▾</button>
+                <button class="btn btn-primary">+ New playbook</button>
+            </div>
+        </div>
+
+        <!-- Top metric row -->
+        <div class="metric-row">
+            <div class="metric-card">
+                <div class="label">Agent actions today</div>
+                <div class="value">1,284</div>
+                <div class="delta">▲ 12.4% vs yesterday</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">MRR tracked</div>
+                <div class="value">$3,297</div>
+                <div class="delta">▲ $412 this week</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">Open tickets</div>
+                <div class="value">7</div>
+                <div class="delta down">▼ 4 from yesterday</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">CSAT (last 50)</div>
+                <div class="value">96%</div>
+                <div class="delta">▲ 3 pp this week</div>
+            </div>
+        </div>
+
+        <!-- Two-column row -->
+        <div class="panel-row">
+            <div>
+                <div class="panel">
+                    <h3>Agent activity <span class="h3-meta">last 7 days</span></h3>
+                    <svg class="sparkline" viewBox="0 0 600 140" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.4" />
+                                <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M0,110 L40,98 L80,82 L120,90 L160,68 L200,55 L240,72 L280,40 L320,52 L360,28 L400,42 L440,22 L480,35 L520,18 L560,28 L600,12 L600,140 L0,140 Z" fill="url(#grad1)" />
+                        <path d="M0,110 L40,98 L80,82 L120,90 L160,68 L200,55 L240,72 L280,40 L320,52 L360,28 L400,42 L440,22 L480,35 L520,18 L560,28 L600,12" stroke="#a78bfa" stroke-width="2" fill="none" />
+                    </svg>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-soft); font-family: var(--font-mono); margin-top: 6px;">
+                        <span>Apr 27</span><span>Apr 28</span><span>Apr 29</span><span>Apr 30</span><span>May 1</span><span>May 2</span><span>May 3</span>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3>Live message bus</h3>
+                    <ul class="activity-list" id="busFeed">
+                        <li><span class="pill from-vikram">vikram → arya</span><div class="topic">qualified_lead<div class="body">Acme Logistics — score 87, decision-maker confirmed</div></div><span class="ts">14:02</span></li>
+                        <li><span class="pill from-priya">priya → lakshmi</span><div class="topic">refund_request<div class="body">Ticket #482 — customer requested $99 refund within 7-day window</div></div><span class="ts">14:11</span></li>
+                        <li><span class="pill from-lakshmi">lakshmi → priya</span><div class="topic">refund_approved<div class="body">Stripe re_3PqmZI2Yz approved · $99 returned to original card</div></div><span class="ts">14:14</span></li>
+                        <li><span class="pill from-riya">riya → dev</span><div class="topic">analytics_query<div class="body">Need pageviews-per-post for last 7 days, top by engagement rate</div></div><span class="ts">14:20</span></li>
+                        <li><span class="pill from-dev">dev → riya</span><div class="topic">analytics_reply<div class="body">Top: "How we built YuktiAI" — 1,841 views · 4.7% engagement</div></div><span class="ts">14:22</span></li>
+                        <li><span class="pill from-arya">arya → vikram</span><div class="topic">handoff_complete<div class="body">Acme demo scheduled Thu 3pm IST — proposal draft attached</div></div><span class="ts">14:31</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <div class="panel">
+                    <h3>Agent status</h3>
+                    <table class="app-table">
+                        <thead><tr><th>Agent</th><th>Status</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Vikram</strong> <span style="color:var(--text-mute)">BD</span></td><td><span class="status-pill active">Active</span></td></tr>
+                            <tr><td><strong>Arya</strong> <span style="color:var(--text-mute)">Sales</span></td><td><span class="status-pill active">Active</span></td></tr>
+                            <tr><td><strong>Priya</strong> <span style="color:var(--text-mute)">Support</span></td><td><span class="status-pill active">Active</span></td></tr>
+                            <tr><td><strong>Dev</strong> <span style="color:var(--text-mute)">Eng</span></td><td><span class="status-pill active">Active</span></td></tr>
+                            <tr><td><strong>Lakshmi</strong> <span style="color:var(--text-mute)">Finance</span></td><td><span class="status-pill active">Active</span></td></tr>
+                            <tr><td><strong>Riya</strong> <span style="color:var(--text-mute)">Marketing</span></td><td><span class="status-pill paused">Paused</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel">
+                    <h3>Connected integrations <span class="h3-meta">9 active</span></h3>
+                    <table class="app-table">
+                        <tbody>
+                            <tr><td>Stripe</td><td style="text-align:right; color: var(--green);">●</td></tr>
+                            <tr><td>HubSpot</td><td style="text-align:right; color: var(--green);">●</td></tr>
+                            <tr><td>Linear</td><td style="text-align:right; color: var(--green);">●</td></tr>
+                            <tr><td>Slack</td><td style="text-align:right; color: var(--green);">●</td></tr>
+                            <tr><td>Zendesk</td><td style="text-align:right; color: var(--green);">●</td></tr>
+                            <tr><td>GitHub</td><td style="text-align:right; color: var(--green);">●</td></tr>
+                            <tr><td>Gmail</td><td style="text-align:right; color: var(--amber);">●</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel">
+                    <h3>System health</h3>
+                    <table class="app-table">
+                        <tbody>
+                            <tr><td>API uptime</td><td style="text-align:right; font-family: var(--font-mono); color: var(--green)">99.94%</td></tr>
+                            <tr><td>P50 response</td><td style="text-align:right; font-family: var(--font-mono)">182 ms</td></tr>
+                            <tr><td>Bus throughput</td><td style="text-align:right; font-family: var(--font-mono)">42 msg/min</td></tr>
+                            <tr><td>Cost today</td><td style="text-align:right; font-family: var(--font-mono)">$3.84</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
