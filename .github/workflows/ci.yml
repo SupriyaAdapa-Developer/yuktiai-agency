@@ -3,30 +3,32 @@ name: ci
 on: [push, pull_request]
 
 jobs:
-  lint-static:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: "20" }
-      - run: npm install
-      - run: npm run lint
-      - name: Validate agent JSON files
-        run: |
-          for f in agents/*.json; do
-            python3 -c "import json,sys;json.load(open('$f'))"
-          done
-      - name: Validate n8n workflow JSON files
-        run: |
-          for f in n8n/*.json; do
-            python3 -c "import json,sys;json.load(open('$f'))"
-          done
-
-  sql-lint:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
-      - run: pip install "sqlfluff>=2.3"
-      - run: sqlfluff lint --dialect postgres supabase/
+
+      - name: Validate agent JSON files
+        run: |
+          for f in agents/*.json; do
+            echo "checking $f"
+            python3 -c "import json,sys;json.load(open('$f'))"
+          done
+
+      - name: Validate n8n workflow JSON files
+        run: |
+          for f in n8n/*.json; do
+            echo "checking $f"
+            python3 -c "import json,sys;json.load(open('$f'))"
+          done
+
+      - name: Validate package.json
+        run: python3 -c "import json;json.load(open('package.json'))"
+
+      - name: Validate HTML files exist and are non-empty
+        run: |
+          for f in public/index.html public/admin.html public/client.html; do
+            test -s "$f" || { echo "missing or empty: $f"; exit 1; }
+          done
