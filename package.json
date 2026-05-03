@@ -16,5 +16,10 @@
   "devDependencies": {
     "eslint": "^9.4.0",
     "serve": "^14.2.4"
+  },
+  "homepage": "https://getyuktiai.netlify.app/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SupriyaAdapa-Developer/yuktiai-agency"
   }
 }

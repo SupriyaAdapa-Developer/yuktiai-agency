@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
-# Deploy YuktiAI to Supabase + Vercel from a clean clone in under a minute.
+# Deploy YuktiAI to Supabase + Netlify from a clean clone in under a minute.
+# Live at: https://getyuktiai.netlify.app/
 set -euo pipefail
 
 : "${SUPABASE_PROJECT_REF:?required}"
-: "${VERCEL_TOKEN:?required}"
+: "${NETLIFY_AUTH_TOKEN:?required}"
+: "${NETLIFY_SITE_ID:?required (e.g. getyuktiai)}"
 
 echo "[1/5] applying database migrations..."
 supabase db push --project-ref "$SUPABASE_PROJECT_REF"
@@ -21,7 +23,11 @@ for fn in api/*.ts; do
     supabase functions deploy "$name" --project-ref "$SUPABASE_PROJECT_REF"
 done
 
-echo "[5/5] deploying public/ to Vercel..."
-npx vercel deploy public --prod --token "$VERCEL_TOKEN" --yes
+echo "[5/5] deploying public/ to Netlify..."
+npx --yes netlify-cli deploy \
+    --dir=public \
+    --site="$NETLIFY_SITE_ID" \
+    --auth="$NETLIFY_AUTH_TOKEN" \
+    --prod
 
-echo "Done. Open https://yuktiai-demo.vercel.app"
+echo "Done. Live at: https://getyuktiai.netlify.app/"

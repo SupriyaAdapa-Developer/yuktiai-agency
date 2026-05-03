@@ -1,5 +1,6 @@
 # YuktiAI — AI Agency Platform
 
+[![live](https://img.shields.io/badge/live_site-getyuktiai.netlify.app-3D8856)](https://getyuktiai.netlify.app/)
 [![ci](https://img.shields.io/badge/ci-passing-brightgreen)](.github/workflows/ci.yml)
 [![supabase](https://img.shields.io/badge/Supabase-RLS-3ECF8E)](https://supabase.com/)
 [![n8n](https://img.shields.io/badge/n8n-workflows-EA4B71)](https://n8n.io/)
@@ -8,6 +9,8 @@
 > **Six AI agents running an entire agency** — BD, sales, support, engineering,
 > finance, marketing.  Client portal, admin dashboard, deployed in a single day
 > on a free stack.
+>
+> **Live demo: https://getyuktiai.netlify.app/**
 
 ## The six agents
 
@@ -23,9 +26,17 @@
 Personas live in [agents/](agents/). Each has a model, temperature, scope,
 allowed tools, and a fallback human.  See [docs/agent_personas.md](docs/agent_personas.md).
 
+## Try it live
+
+The frontend is hosted on Netlify at **[getyuktiai.netlify.app](https://getyuktiai.netlify.app/)**.
+It boots with bundled demo data so you can click around the dashboard,
+client portal, and admin pages without a Supabase account. Wire up your own
+Supabase project (see Deploy below) and the same UI will pull live data.
+
 ## Stack
 
-- **Frontend** — vanilla HTML/CSS/JS in `public/`, hosted on Vercel.
+- **Frontend** — vanilla HTML/CSS/JS in `public/`, hosted on **Netlify** at
+  [getyuktiai.netlify.app](https://getyuktiai.netlify.app/).
 - **Database + auth + edge functions** — Supabase (Postgres + RLS).
 - **Workflows** — n8n (self-hosted), three workflows in `n8n/`.
 - **LLM** — Claude (`claude-sonnet-4-6`, `claude-haiku-4-5-20251001`,
@@ -34,7 +45,7 @@ allowed tools, and a fallback human.  See [docs/agent_personas.md](docs/agent_pe
 ## Deploy in a day
 
 ```bash
-git clone https://github.com/<you>/yuktiai-agency
+git clone https://github.com/SupriyaAdapa-Developer/yuktiai-agency
 cd yuktiai-agency
 cp .env.example .env && $EDITOR .env
 
@@ -50,7 +61,8 @@ What `deploy.sh` does:
 2. Apply RLS policies from `supabase/policies.sql`.
 3. Seed the demo tenant + 6 agents from `supabase/seed.sql`.
 4. Deploy 3 Edge Functions in `api/`.
-5. Push `public/` static site to Vercel.
+5. Push `public/` static site to **Netlify** (live at
+   [getyuktiai.netlify.app](https://getyuktiai.netlify.app/)).
 
 ## Architecture
 
